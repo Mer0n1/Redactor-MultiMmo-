@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<account>
+    <SA id="1" name="DirectionTest">
+        <delay Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+        <duration Value="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 "/>
+        <Tile ValueX="-1 -2 -3 -4 -5 -5 -4 -3 -2 0 0 0 0 0 0 0 0 0 0 0 " ValueY="-3 -2 -1 0 1 2 3 4 5 0 0 0 0 0 0 0 0 0 0 0 "/>
+        <Description FuncAttack="Direction" TypeAttack="Do" Distantion="5" Recharge="30" QuanityTile="20" Size="32"/>
+        <mobs Vide="0" pVide="0" tVide="0"/>
+    </SA>
+</account>

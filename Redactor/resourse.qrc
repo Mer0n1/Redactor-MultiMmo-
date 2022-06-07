@@ -1,0 +1,13 @@
+<RCC>
+    <qresource prefix="/new/prefix1">
+        <file>img/change.png</file>
+        <file>img/changeActive.png</file>
+        <file>img/changeRed.png</file>
+        <file>img/Developer.png</file>
+    </qresource>
+    <qresource prefix="/">
+        <file>img/Delay.avi</file>
+        <file>img/Duration.avi</file>
+        <file>img/Do.avi</file>
+    </qresource>
+</RCC>
