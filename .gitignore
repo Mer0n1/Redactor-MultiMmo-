@@ -1,0 +1,14 @@
+debug
+Redactor/debug
+Redactor/release
+.qmake.stash
+*.ui
+Makefile
+Makefile.Debug
+Makefile.Release
+Redactor.pro
+Redactor.pro.user
+resourse.qrc
+usersuserappdatalocaltemptmpahcrzw
+usersuserappdatalocaltemptmpbsxkg7
+usersuserappdatalocaltemptmpj2ogb2
