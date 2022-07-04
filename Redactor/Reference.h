@@ -11,6 +11,7 @@
 #include <QVideoWidget>
 #include <QWheelEvent>
 #include <QPushButton>
+#include <QPointer>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Reference; }
@@ -25,18 +26,16 @@ public:
 
 private slots:
     void updateScroll(int); //изменяем значения координат скроллинга
-
     void wheelEvent(QWheelEvent *event); //скроллинг колесиком мышки
-    bool eventFilter(QObject *o, QEvent *e); //обработка событий QObject
-
+    //bool eventFilter(QObject *o, QEvent *e); //обработка событий QObject
 private:
-    QMediaPlayer *playerDelay; //плеер для проигрывания видео
-    QMediaPlayer *playerDo;
-    QMediaPlayer *playerDuration;
+    QPointer<QMediaPlayer> playerDo; //плеер для проигрывания видео
+    QPointer<QMediaPlayer> playerDuration;
+    QPointer<QMediaPlayer> playerDelay;
 
-    QVideoWidget *videoDo;
-    QVideoWidget *videoDuration;
-    QVideoWidget *videoDelay;
+    QPointer<QVideoWidget> videoDo;
+    QPointer<QVideoWidget> videoDuration;
+    QPointer<QVideoWidget> videoDelay;
 
     Ui::Reference *ui;
 };

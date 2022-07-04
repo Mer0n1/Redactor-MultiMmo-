@@ -128,7 +128,6 @@ public:
         SizeMap->addItem(QString());
         SizeMap->addItem(QString());
         SizeMap->addItem(QString());
-        SizeMap->addItem(QString());
         SizeMap->setObjectName(QString::fromUtf8("SizeMap"));
         SizeMap->setGeometry(QRect(300, 30, 141, 21));
         QuanOCH = new QLabel(centralwidget);
@@ -208,7 +207,6 @@ public:
         SizeMap->setItemText(2, QCoreApplication::translate("MainWindow", "24", nullptr));
         SizeMap->setItemText(3, QCoreApplication::translate("MainWindow", "16", nullptr));
         SizeMap->setItemText(4, QCoreApplication::translate("MainWindow", "8", nullptr));
-        SizeMap->setItemText(5, QCoreApplication::translate("MainWindow", "4", nullptr));
 
         QuanOCH->setText(QCoreApplication::translate("MainWindow", "<html><head/><body><p><span style=\" font-size:16pt;\">10000 </span></p></body></html>", nullptr));
         CellBuy->setText(QCoreApplication::translate("MainWindow", "\320\242\320\260\320\271\320\273 - 500 \320\236", nullptr));

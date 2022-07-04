@@ -10,6 +10,7 @@
 #include <QLabel>
 #include <QDebug>
 #include <cmath>
+#include <QVector2D>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class Redactor; }
@@ -24,50 +25,36 @@ public:
 
     void setSizeTile(int size); //изменить размер тайлов (автоматически вызывает UpdateMap)
     void setDistance(int size); //установить дистанцию
-    void setQuanTile(int q); //установка значения количества допустимых тайлов
-    void setRecharge(int q); //установка перезарядки
-    void setActiveTile_Delay(int q); //установить задержку выделенному красным тайлу
-    void setActiveTile_Duratuion(int q);//установить продолжительность выделенному красным тайлу
-
-    int getDistance();
-    int getSizeTile();
-    int getQuanTile();
-    int getRecharge();
-    float getDelay(int number); //вернуть номер элемента массива задержки
-    float getDuration(int number); //вернуть номер элемента массива продолжительности
-    float getActiveTile_Duration(); //вернуть значение Duration выделенного красным тайла
-    float getActiveTile_Delay();
 
     void RecordInFile(QXmlStreamWriter* xmlWriter); //записать в файл
-
 private:
-    void UpdateMap(); //обновить карту (обновить ее размеры тайлов)
+    void UpdateMap(); //обновить карту (обновить ее размеры тайлов или дистанцию)
 
     virtual void mousePressEvent(QMouseEvent* e); //обработка нажатий мыши
     virtual void keyPressEvent (QKeyEvent* e); //обработка нажатий клавиш
-
 
     QVector<QLabel*> vec;
     QLabel *ChPerson; //лейбл персонажа
     QWidget *red; //добавление через обьекты виджетов
     QPixmap person; //текстура модели персонажа
-    QMouseEvent *EMouse; //настройки мышки
     int width, height; //высота ширина модельки персонажа
 
     int QuanTile; //макс допустимое кол во тайлов для выбора
     int distance; //зона от персонажа в пределах которой можно выбирать тайлы
-    int recharge; //перезарядка (величина Атаки)
     int SizeTile; //размер тайлов
+    int recharge; //перезарядка (величина Атаки)
     int numC; //номер выделенного красным тайла в списке
 
-    int Tile[100][2]; //позиция выбранных тайлов
     float delay[100]; //задержка тайла
     float duration[100]; //продолжительность кадра
-    int redCo[2]; //позиция выделенного красным цветом тайла (0 - по x, 1 - по y)
+    QVector2D redCo; //позиция выделенного красным цветом тайла
+    QVector2D Tile[100]; //позиция выбранных тайлов
 
     Ui::Redactor *ui;
 signals:
     void DUpdate(); //обновление характеристик при выборе тайла
+
+    friend class MainWindow;
 };
 
 

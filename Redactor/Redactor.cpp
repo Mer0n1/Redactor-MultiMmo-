@@ -24,11 +24,10 @@ Redactor::Redactor(QWidget *parent) :
     numC = 0;
     width = 70;
     height = 150;
-
     red = new QWidget;
 
     //карта
-    for (int j = 0; j < 5000; j++)
+    for (int j = 0; j < 2789; j++)
         vec.push_back(new QLabel(this));
 
     setSizeTile(SizeTile); //редактируем размер карты
@@ -43,7 +42,12 @@ Redactor::Redactor(QWidget *parent) :
 
 Redactor::~Redactor()
 {
+    delete ui;
+    delete red;
+    delete ChPerson;
 
+    for (int j = 0; j < vec.size(); j++)
+        delete vec[j];
 }
 
 void Redactor::mousePressEvent(QMouseEvent* e)
@@ -170,10 +174,10 @@ void Redactor::UpdateMap() //обновить карту (после каког�
     int xD = (distance*2 + width) / SizeTile; //кол во тайлов по x и y учитывая макс допустимую дистанцию
     int yD = (distance*2 + height) / SizeTile;
 
-   for (int x = 0; x < xD; x++)
-   for (int y = 0; y < yD; y++)
-       vec[y + x * yD]->setGeometry(210-distance + x * SizeTile, //делаем начало прорисовки чуть выше
-                                    170-distance + y * SizeTile, SizeTile, SizeTile);
+    for (int x = 0; x < xD; x++)
+    for (int y = 0; y < yD; y++)
+        vec[y + x * yD]->setGeometry(210-distance + x * SizeTile, //делаем начало прорисовки чуть выше
+                                     170-distance + y * SizeTile, SizeTile, SizeTile);
 }
 
 void Redactor::RecordInFile(QXmlStreamWriter* xmlWriter)
@@ -236,7 +240,6 @@ void Redactor::RecordInFile(QXmlStreamWriter* xmlWriter)
     xmlWriter->writeEndElement(); //закрываем Tile
 }
 
-
 void Redactor::setSizeTile(int size)
 {
      SizeTile = size; //меняем размер карты
@@ -248,63 +251,3 @@ void Redactor::setDistance(int size)
     distance = size;
     UpdateMap(); //обновляем карту
 }
-
-void Redactor::setQuanTile(int q)
-{
-    QuanTile = q;
-}
-
-void Redactor::setRecharge(int q)
-{
-    recharge = q;
-}
-
-void Redactor::setActiveTile_Delay(int q)
-{
-    delay[numC] = q;
-}
-
-void Redactor::setActiveTile_Duratuion(int q)
-{
-    duration[numC] = q;
-}
-
-int Redactor::getDistance()
-{
-    return distance;
-}
-int Redactor::getSizeTile()
-{
-    return SizeTile;
-}
-
-int Redactor::getQuanTile()
-{
-    return QuanTile;
-}
-
-int Redactor::getRecharge()
-{
-    return recharge;
-}
-
-float Redactor::getActiveTile_Delay()
-{
-    return delay[numC];
-}
-
-float Redactor::getActiveTile_Duration()
-{
-    return duration[numC];
-}
-
-float Redactor::getDelay(int number)
-{
-    return delay[number];
-}
-
-float Redactor::getDuration(int number)
-{
-    return duration[number];
-}
-

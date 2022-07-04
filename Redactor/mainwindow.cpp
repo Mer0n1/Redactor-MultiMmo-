@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->DelayTile->setMaximum(100);
     ui->DurationTile->setMaximum(100);
-    ui->QuanTileCout->setText(QString::number(red_->getQuanTile()));
+    ui->QuanTileCout->setText(QString::number(red_->QuanTile));
 
     connect(ui->SizeMap, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateMap(QString))); //изменяем размер карты
     connect(ui->TypeAttack, SIGNAL(currentIndexChanged(QString)), this, SLOT(updateTypeAttack(QString)));
@@ -40,9 +40,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_CellBuy_clicked() //купить тайлы
 {
     if (OCH >= 500) {
-        red_->setQuanTile(red_->getQuanTile() + 1); //QuanTile++
+        red_->QuanTile++;
         OCH -= 500;
-        ui->QuanTileCout->setText(QString::number(red_->getQuanTile()));
+        ui->QuanTileCout->setText(QString::number(red_->QuanTile));
         ui->QuanOCH->setText(QString::number(OCH));
         ui->QuanOCH->setStyleSheet("font-size:21px;"); //стандарт размер
     }
@@ -51,7 +51,7 @@ void MainWindow::on_CellBuy_clicked() //купить тайлы
 void MainWindow::on_DistantionBuy_clicked() //купить дистанцию
 {
     if (OCH >= 1500) {
-        red_->setDistance(red_->getDistance() + red_->getSizeTile());
+        red_->setDistance(red_->distance + red_->SizeTile);
         OCH -= 1500;
         ui->QuanOCH->setText(QString::number(OCH));
     }
@@ -59,11 +59,11 @@ void MainWindow::on_DistantionBuy_clicked() //купить дистанцию
 
 void MainWindow::UpdateCh() //обновить показ характеристик
 {
-     ui->QuanDelayCout->setNum(red_->getActiveTile_Delay());
-     ui->QuanDurationCout->setNum(red_->getActiveTile_Duration()); //записываем в QLabel
+     ui->QuanDelayCout->setNum(red_->delay[red_->numC]);
+     ui->QuanDurationCout->setNum(red_->duration[red_->numC]); //записываем в QLabel
 
-     ui->DelayTile->setValue(red_->getActiveTile_Delay()); //записываем в ComboBox
-     ui->DurationTile->setValue(red_->getActiveTile_Duration());
+     ui->DelayTile->setValue(red_->delay[red_->numC]); //записываем в ComboBox
+     ui->DurationTile->setValue(red_->duration[red_->numC]);
 
      ui->QuanOCH->setNum(OCH - _BuyDelay - _BuyDuration - _BuyTypeAttack);
      ui->QuanOCH->setStyleSheet("font-size:21px;"); //задаем прежний размер
@@ -106,11 +106,11 @@ void MainWindow::update_Delay(double d)
 {
     //записываем значение индекса в тот же индекс delay
     if (OCH >= 50) {
-        red_->setActiveTile_Delay(d);
+        red_->delay[red_->numC] = d;
         _BuyDelay = 0;
 
-        for (int j = 0; j < red_->getQuanTile(); j++)
-            _BuyDelay += red_->getDelay(j) * 10 * 50; //берем значения со всех тайлов и суммируем их стоимость
+        for (int j = 0; j < red_->QuanTile; j++)
+            _BuyDelay += red_->delay[j] * 10 * 50; //берем значения со всех тайлов и суммируем их стоимость
 
         UpdateCh();
     }
@@ -120,11 +120,11 @@ void MainWindow::update_Duration(double d)
 {
     //записываем значение индекса в тот же индекс duration
     if (OCH >= 100) {
-        red_->setActiveTile_Duratuion(d);
+        red_->duration[red_->numC] = d;
         _BuyDuration = 0;
 
-        for (int j = 0; j < red_->getQuanTile(); j++)
-            _BuyDuration += red_->getDuration(j) * 10 * 50; //берем значения со всех тайлов и суммируем их стоимость
+        for (int j = 0; j < red_->QuanTile; j++)
+            _BuyDuration += red_->duration[j] * 10 * 50; //берем значения со всех тайлов и суммируем их стоимость
 
         UpdateCh();
     }
@@ -169,10 +169,10 @@ void MainWindow::on_Create_clicked() //создание атаки (запись
     xmlWriter.writeStartElement("Description");
     xmlWriter.writeAttribute("FuncAttack", FuncAttack);
     xmlWriter.writeAttribute("TypeAttack", type_attack);
-    xmlWriter.writeAttribute("Distantion", QString::number(red_->getDistance() / red_->getSizeTile()));
-    xmlWriter.writeAttribute("Recharge", QString::number(red_->getRecharge()));
-    xmlWriter.writeAttribute("QuanityTile", QString::number(red_->getQuanTile()));
-    xmlWriter.writeAttribute("Size", QString::number(red_->getSizeTile()));
+    xmlWriter.writeAttribute("Distantion", QString::number(red_->distance / red_->SizeTile));
+    xmlWriter.writeAttribute("Recharge", QString::number(red_->recharge));
+    xmlWriter.writeAttribute("QuanityTile", QString::number(red_->QuanTile));
+    xmlWriter.writeAttribute("Size", QString::number(red_->SizeTile));
     xmlWriter.writeEndElement(); //закрываем Description
 
     //mobs
